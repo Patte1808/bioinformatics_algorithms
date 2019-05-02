@@ -173,7 +173,7 @@ def main(args):
     # print out patterns and their occurence counter / positions
     for pattern in patterns:
         print("{}: {}".format(pattern, occurence_counter[pattern]))
-        print("Matches occur at positions: [{}]".format(matching_positions[pattern]))
+        print("Matching positions: {}".format(matching_positions[pattern]))
 
     template_file.close()
 
