@@ -89,9 +89,7 @@ def parse_patterns(file_stream):
 def main(args):
     # getting the template_file path from command line and try to parse it
     try:
-        print("before template open")
         template_file = open(args[0], "r")
-        print("after tempalte open")
     except Exception as exception:
         print("Something went wrong while parsing fast template: " + repr(exception))
         sys.exit(-1)
