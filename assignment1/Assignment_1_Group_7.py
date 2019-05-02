@@ -1,5 +1,4 @@
 import sys
-
 """
 Trie data structure
 
@@ -90,7 +89,9 @@ def parse_patterns(file_stream):
 def main(args):
     # getting the template_file path from command line and try to parse it
     try:
+        print("before template open")
         template_file = open(args[0], "r")
+        print("after tempalte open")
     except Exception as exception:
         print("Something went wrong while parsing fast template: " + repr(exception))
         sys.exit(-1)
@@ -144,10 +145,15 @@ def main(args):
                 # appending surplus to current line
                 line = surplus + line
 
+                # clean up surplus buffer
+                surplus = ""
+
             # as long as we have enough characters to cover our max_pattern_len we're good to go
             while enough_characters:
                 if line[start_index:end_index] and len(line[start_index:end_index]) >= max_pattern_len:
                     trie.find_word_in_trie(line[start_index:end_index], occurence_counter, current_absolute_position, matching_positions)
+                    
+                    # Build new 'search'-mask
                     start_index += 1
                     end_index += 1
                 # our build up mask doesn't fit into the current line, we're done with this line
@@ -157,6 +163,14 @@ def main(args):
                     enough_characters = False
                 
                 current_absolute_position += 1
+
+    # Just to be sure:
+    # if we read the last line and there's still a surplus, we need check whether there might be a pattern-match in this surplus
+    if len(surplus) > 0:
+        for i in range(len(surplus)):
+            # cut the string from the beginning until the end
+            # this way we make sure that we still check for patterns in our surplus
+            trie.find_word_in_trie(surplus[i:], occurence_counter, current_absolute_position, matching_positions)
 
     # print out patterns and their occurence counter / positions
     for pattern in patterns:
