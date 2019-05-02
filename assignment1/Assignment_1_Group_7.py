@@ -169,6 +169,7 @@ def main(args):
             # cut the string from the beginning until the end
             # this way we make sure that we still check for patterns in our surplus
             trie.find_word_in_trie(surplus[i:], occurence_counter, current_absolute_position, matching_positions)
+            current_absolute_position += 1
 
     # print out patterns and their occurence counter / positions
     for pattern in patterns:
