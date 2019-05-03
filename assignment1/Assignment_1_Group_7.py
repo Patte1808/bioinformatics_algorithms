@@ -154,13 +154,13 @@ def main(args):
                     # Build new 'search'-mask
                     start_index += 1
                     end_index += 1
+
+                    current_absolute_position += 1
                 # our build up mask doesn't fit into the current line, we're done with this line
                 else:
                     # reached end of line
                     surplus = line[start_index:]
                     enough_characters = False
-                
-                current_absolute_position += 1
 
     # Just to be sure:
     # if we read the last line and there's still a surplus, we need check whether there might be a pattern-match in this surplus
