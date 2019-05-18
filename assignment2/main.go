@@ -74,13 +74,13 @@ func boyerMoore(pattern string, text string) ([]int, int) {
 		} else {
 			shift += max(1, index - badMatchTable[string(text[shift + index])])
 		}
- 	}
+	}
 
 	return matches, occurenceCounter
 }
 
-func main() {
-	file, err := os.Open("./Search_patterns.fasta")
+func parsePatternFile(filepath string) []string {
+	file, err := os.Open(filepath)
 	check(err)
 	defer file.Close()
 
@@ -95,13 +95,24 @@ func main() {
 		}
 	}
 
+	return patterns
+}
+
+func parseTemplateFile(filepath string) string {
 	templateString := ""
 
-	data, err := ioutil.ReadFile("./Template_Chr_20.fasta")
+	data, err := ioutil.ReadFile(filepath)
 	check(err)
 	templateString = string(data)
 	templateString = templateString[1:]
 	templateString = strings.ReplaceAll(templateString, "\n", "")
+
+	return templateString
+}
+
+func main() {
+	patterns := parsePatternFile("./Search_patterns.fasta")
+	templateString := parseTemplateFile("./Template_Chr_20.fasta")
 
 	for pattern := range patterns {
 		matches, occurences := boyerMoore(patterns[pattern], templateString)
