@@ -111,8 +111,14 @@ func parseTemplateFile(filepath string) string {
 }
 
 func main() {
-	patterns := parsePatternFile("./Search_patterns.fasta")
-	templateString := parseTemplateFile("./Template_Chr_20.fasta")
+	args := os.Args[1:]
+
+	if len(args) < 2 {
+		panic("Not enough command line arguments")
+	}
+
+	patterns := parsePatternFile(args[0])
+	templateString := parseTemplateFile(args[1])
 
 	for pattern := range patterns {
 		matches, occurences := boyerMoore(patterns[pattern], templateString)
