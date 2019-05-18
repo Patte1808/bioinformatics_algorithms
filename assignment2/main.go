@@ -41,6 +41,14 @@ func max(x, y int) int {
 	return x
 }
 
+func min(x, y int) int {
+	if x > y {
+		return y
+	}
+
+	return x
+}
+
 func boyerMoore(pattern string, text string) ([]int, int) {
 
 	matches := make([]int, 0)
@@ -123,6 +131,8 @@ func main() {
 	for pattern := range patterns {
 		matches, occurences := boyerMoore(patterns[pattern], templateString)
 		fmt.Println(patterns[pattern], ": ", occurences)
-		fmt.Println("Matching positions: ", matches[:10])
+
+		takePositionsUntil := min(10, len(matches))
+		fmt.Println("Matching positions: ", matches[:takePositionsUntil])
 	}
 }
