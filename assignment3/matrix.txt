@@ -1,0 +1,10 @@
+#
+# DNA scoring matrix 
+#
+# Lowest score = -4, Highest score = 5
+#
+    A   T   G   C
+A   5  -3  -4  -4
+T  -3   5  -4  -4
+G  -4  -4   5  -2
+C  -4  -4  -2   5
